@@ -8,17 +8,23 @@ public class PlayerShoot : MonoBehaviour
 
     public Camera cam;
 
-    private PlayerWeapon currentWeapon;
+    public float[] currentWeapon;
+    public float currentRange;
+    public float currentDamage;
+    public float tailleChargeur;
+    public float munRestante;
 
     public LayerMask mask;
 
-    private WeaponManager weaponManager;
+    public WeaponManager weaponManager;
 
     public ParticleSystem flareSmoke;
 
     public GameObject impactBalle;
 
     public PlayerController playerController;
+
+    public BoutiqueManager boutiqueManager;
     
     void Start()
     {
@@ -27,19 +33,25 @@ public class PlayerShoot : MonoBehaviour
             Debug.LogError("Pas de cam pour le système de tir");
             this.enabled = false;
         }
-
-        weaponManager = GetComponent<WeaponManager>();
     }
 
     private void Update()
     {
         currentWeapon = weaponManager.GetCurrentWeapon();
-            
+        currentRange = currentWeapon[1];
+        tailleChargeur = currentWeapon[3];
+        
+        
+        
         if (Input.GetButtonDown("Fire1"))
         {
             if (playerController.moov)
             {
-                Shoot();
+                if (munRestante>0)
+                {
+                    Shoot();
+                    munRestante -= 1;
+                }
             }
         }
     }
@@ -48,7 +60,7 @@ public class PlayerShoot : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, currentWeapon.range, mask))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, currentRange, mask))
         {
             Debug.Log("Objet touché : "+hit.collider.name);
             Vector3 pos = hit.point;

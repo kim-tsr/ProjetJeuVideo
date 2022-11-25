@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    public PlayerWeapon primaryWeapon;
+    public float[] primaryWeapon;
 
-    private PlayerWeapon currentWeapon;
+    private float[] currentWeapon;
     private PlayerWeapon currentGraphics;
+
+    public BoutiqueManager boutiqueManager;
 
     public Transform weaponHolder;
 
@@ -18,11 +20,12 @@ public class WeaponManager : MonoBehaviour
     private void Start()
     {
         EquipWeapon(primaryWeapon);
+        currentWeapon = boutiqueManager.currentWeapon;
     }
 
-    public PlayerWeapon GetCurrentWeapon()
+    public float[] GetCurrentWeapon()
     {
-        return currentWeapon;
+        return boutiqueManager.currentWeapon;
     }
     
     public PlayerWeapon GetCurrentGraphics()
@@ -30,7 +33,7 @@ public class WeaponManager : MonoBehaviour
         return currentGraphics;
     }
 
-    void EquipWeapon(PlayerWeapon _weapon)
+    void EquipWeapon(float[] _weapon)
     {
         currentWeapon = _weapon;
         
@@ -45,5 +48,10 @@ public class WeaponManager : MonoBehaviour
         {
             Debug.LogError("Pas de script WeaponGraphics sur l'arme : "+weaponIns.name);
         }*/
+    }
+
+    public void Munition()
+    {
+        
     }
 }
