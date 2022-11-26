@@ -49,9 +49,4 @@ public class WeaponManager : MonoBehaviour
             Debug.LogError("Pas de script WeaponGraphics sur l'arme : "+weaponIns.name);
         }*/
     }
-
-    public void Munition()
-    {
-        
-    }
 }

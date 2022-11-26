@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Net.Mime;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(WeaponManager))]
 public class PlayerShoot : MonoBehaviour
@@ -25,6 +27,9 @@ public class PlayerShoot : MonoBehaviour
     public PlayerController playerController;
 
     public BoutiqueManager boutiqueManager;
+
+    public Text texteMunRestante;
+    public Text texteTailleChargeur;
     
     void Start()
     {
@@ -33,6 +38,14 @@ public class PlayerShoot : MonoBehaviour
             Debug.LogError("Pas de cam pour le système de tir");
             this.enabled = false;
         }
+        
+        currentWeapon = weaponManager.GetCurrentWeapon();
+        currentRange = currentWeapon[1];
+        tailleChargeur = currentWeapon[3];
+        munRestante = tailleChargeur;
+
+        texteMunRestante.text = munRestante.ToString();
+        texteTailleChargeur.text = tailleChargeur.ToString();
     }
 
     private void Update()
@@ -41,7 +54,13 @@ public class PlayerShoot : MonoBehaviour
         currentRange = currentWeapon[1];
         tailleChargeur = currentWeapon[3];
         
-        
+        texteMunRestante.text = munRestante.ToString();
+        texteTailleChargeur.text = tailleChargeur.ToString();
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reload();
+        }
         
         if (Input.GetButtonDown("Fire1"))
         {
@@ -70,5 +89,10 @@ public class PlayerShoot : MonoBehaviour
         }
 
         flareSmoke.Play();
+    }
+
+    private void Reload()
+    {
+        munRestante = tailleChargeur;
     }
 }

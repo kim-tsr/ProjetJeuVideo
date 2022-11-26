@@ -37,6 +37,8 @@ public class BoutiqueManager : MonoBehaviour
             currentDamage = playerWeapon.Pistolet[0];
             currentRange = playerWeapon.Pistolet[1];
             currentTailleChargeur = playerWeapon.Pistolet[3];
+            playerShoot.GetComponent<PlayerShoot>().munRestante = currentTailleChargeur;
+            boolPistolet = false;
         }
         
         if (boolMitraillette)
@@ -45,6 +47,8 @@ public class BoutiqueManager : MonoBehaviour
             currentDamage = playerWeapon.Mitraillette[0];
             currentRange = playerWeapon.Mitraillette[1];
             currentTailleChargeur = playerWeapon.Mitraillette[3];
+            playerShoot.GetComponent<PlayerShoot>().munRestante = currentTailleChargeur;
+            boolMitraillette = false;
         }
         
         if (boolFusilAssault)
@@ -53,6 +57,8 @@ public class BoutiqueManager : MonoBehaviour
             currentDamage = playerWeapon.FusilAssault[0];
             currentRange = playerWeapon.FusilAssault[1];
             currentTailleChargeur = playerWeapon.FusilAssault[3];
+            playerShoot.GetComponent<PlayerShoot>().munRestante = currentTailleChargeur;
+            boolFusilAssault = false;
         }
         
         if (boolSniper)
@@ -61,6 +67,8 @@ public class BoutiqueManager : MonoBehaviour
             currentDamage = playerWeapon.Sniper[0];
             currentRange = playerWeapon.Sniper[1];
             currentTailleChargeur = playerWeapon.Sniper[3];
+            playerShoot.GetComponent<PlayerShoot>().munRestante = currentTailleChargeur;
+            boolSniper = false;
         }
     }
 
