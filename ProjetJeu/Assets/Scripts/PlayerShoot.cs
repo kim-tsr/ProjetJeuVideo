@@ -30,6 +30,9 @@ public class PlayerShoot : MonoBehaviour
 
     public Text texteMunRestante;
     public Text texteTailleChargeur;
+
+    public ChangeTouches changeTouches;
+    public KeyCode keyReload;
     
     void Start()
     {
@@ -57,7 +60,9 @@ public class PlayerShoot : MonoBehaviour
         texteMunRestante.text = munRestante.ToString();
         texteTailleChargeur.text = tailleChargeur.ToString();
 
-        if (Input.GetKeyDown(KeyCode.R))
+        keyReload = changeTouches.keyReload;
+
+        if (Input.GetKeyDown(keyReload))
         {
             Reload();
         }

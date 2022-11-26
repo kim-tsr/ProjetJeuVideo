@@ -10,6 +10,8 @@ public class PauseManager : MonoBehaviour
 
     public PlayerController playerController;
 
+    public GameManager gameManager;
+
     public void ChangerTouches()
     {
         canvasPause.enabled = false;
@@ -21,5 +23,6 @@ public class PauseManager : MonoBehaviour
         canvasPause.enabled = false;
         canvasCrosshair.enabled = true;
         playerController.moov = true;
+        gameManager.GetComponent<GameManager>().boolBoutique = true;
     }
 }

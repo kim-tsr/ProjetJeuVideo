@@ -1273,6 +1273,10 @@ MonoBehaviour:
   canvasCrosshair: {fileID: 1018787430}
   canvasBoutique: {fileID: 246797629}
   playerController: {fileID: 279337616}
+  boolPause: 1
+  boolBoutique: 1
+  changeTouches: {fileID: 399543192}
+  keyBoutique: 0
 --- !u!1 &710421815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,6 +1433,14 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4732627012801958382, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -68
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732627012801958382, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 131
+      objectReference: {fileID: 0}
     - target: {fileID: 4732627012924854034, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
       propertyPath: m_Name
       value: CanvasTouches
@@ -1525,6 +1537,50 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4732627013176082593, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -108
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732627013416711583, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -112
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732627013796481903, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -73
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732627014077146838, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -71
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732627014095180915, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -70
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732627014143663610, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -111
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732627014143663610, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732627014269637345, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -111
+      objectReference: {fileID: 0}
+    - target: {fileID: 8780456626967310660, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: textJump
+      value: 
+      objectReference: {fileID: 1466878905}
+    - target: {fileID: 8780456626967310660, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: textSlow
+      value: 
+      objectReference: {fileID: 1157668797}
+    - target: {fileID: 8780456626967310660, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+      propertyPath: textReload
+      value: 
+      objectReference: {fileID: 1980242515}
     - target: {fileID: 8780456626967310660, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
       propertyPath: canvasPause
       value: 
@@ -1855,6 +1911,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1157668797 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1158189491960822971, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+  m_PrefabInstance: {fileID: 948662430}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1222322029 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 395900951947094700, guid: 7373b8ea592e18546bc8c57cf8ae0cb9, type: 3}
@@ -2003,6 +2070,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406177580}
   m_CullTransparentMesh: 1
+--- !u!114 &1466878905 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7799475648869749802, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+  m_PrefabInstance: {fileID: 948662430}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1520905566
 GameObject:
   m_ObjectHideFlags: 0
@@ -2526,6 +2604,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1712510346}
   m_CullTransparentMesh: 1
+--- !u!114 &1980242515 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4282891581128746403, guid: 9e61c6fb362dce24196adef556804d19, type: 3}
+  m_PrefabInstance: {fileID: 948662430}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &395900951020473793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2622,6 +2711,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6554336982340010404, guid: 7373b8ea592e18546bc8c57cf8ae0cb9, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 705507996}
+    - target: {fileID: 6554336982340010404, guid: 7373b8ea592e18546bc8c57cf8ae0cb9, type: 3}
       propertyPath: canvasTouches
       value: 
       objectReference: {fileID: 399543194}
@@ -2650,6 +2743,10 @@ PrefabInstance:
       propertyPath: touches
       value: 
       objectReference: {fileID: 399543192}
+    - target: {fileID: -4177230318606025612, guid: e61263a1e3f87474fb8bbad60dd1df2f, type: 3}
+      propertyPath: jumpForce
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: -4177230318606025612, guid: e61263a1e3f87474fb8bbad60dd1df2f, type: 3}
       propertyPath: keyAvancer
       value: 122
@@ -2719,6 +2816,10 @@ PrefabInstance:
       value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 2056170201444351497, guid: e61263a1e3f87474fb8bbad60dd1df2f, type: 3}
+      propertyPath: changeTouches
+      value: 
+      objectReference: {fileID: 399543192}
+    - target: {fileID: 2056170201444351497, guid: e61263a1e3f87474fb8bbad60dd1df2f, type: 3}
       propertyPath: weaponManager
       value: 
       objectReference: {fileID: 514593445}
@@ -2738,6 +2839,14 @@ PrefabInstance:
       propertyPath: texteTailleChargeur
       value: 
       objectReference: {fileID: 1712510348}
+    - target: {fileID: 2943350927504141063, guid: e61263a1e3f87474fb8bbad60dd1df2f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3357769561731515993, guid: e61263a1e3f87474fb8bbad60dd1df2f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.756
+      objectReference: {fileID: 0}
     - target: {fileID: 4544243827061279272, guid: e61263a1e3f87474fb8bbad60dd1df2f, type: 3}
       propertyPath: m_Name
       value: Personnage
@@ -3086,6 +3195,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 200020377}
+    - target: {fileID: 8341501674892986102, guid: e61263a1e3f87474fb8bbad60dd1df2f, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 279337616}
     - target: {fileID: 8742143124379428830, guid: e61263a1e3f87474fb8bbad60dd1df2f, type: 3}
       propertyPath: playOnAwake
       value: 0

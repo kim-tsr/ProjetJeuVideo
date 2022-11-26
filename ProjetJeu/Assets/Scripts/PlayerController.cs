@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,11 @@ public class PlayerController : MonoBehaviour
     public KeyCode keyReculer;
     public KeyCode keyDroite;
     public KeyCode keyGauche;
+    public KeyCode keyJump;
+    public KeyCode keySlow;
+
+    public bool isJumping;
+    public float jumpForce;
 
     public bool moov = true;
 
@@ -31,76 +37,85 @@ public class PlayerController : MonoBehaviour
         if (moov)
         {
             keyAvancer = touches.keyAvancer;
-                    keyReculer = touches.keyReculer;
-                    keyDroite = touches.keyDroite;
-                    keyGauche = touches.keyGauche;
-                    
-                    if (Input.GetKeyDown(KeyCode.LeftShift))
-                    {
-                        speed = speed / 2f;
-                    }
+            keyReculer = touches.keyReculer;
+            keyDroite = touches.keyDroite;
+            keyGauche = touches.keyGauche;
+            keyJump = touches.keyJump;
+            keySlow = touches.keySlow;
+
+            if (Input.GetKeyDown(keyJump))
+            {
+                isJumping = true;
+            }
             
-                    if (Input.GetKeyUp(KeyCode.LeftShift))
-                    {
-                        speed = speed * 2f;
-                    }
+            if (Input.GetKeyDown(keySlow))
+            {
+                speed = speed / 2f;
+            }
             
-                    if (Input.GetKeyDown(keyAvancer))
-                    {
-                        zMov = 1f;
-                    }
-                    if (Input.GetKeyUp(keyAvancer))
-                    {
-                        zMov = 0;
-                    }
+            if (Input.GetKeyUp(keySlow))
+            {
+                speed = speed * 2f;
+            }
             
-                    if (Input.GetKeyDown(keyReculer))
-                    {
-                        zMov = -1f;
-                    }
-                    if (Input.GetKeyUp(keyReculer))
-                    {
-                        zMov = 0;
-                    }
+            if (Input.GetKeyDown(keyAvancer))
+            {
+                zMov = 1f;
+            }
+            if (Input.GetKeyUp(keyAvancer))
+            {
+                zMov = 0;
+            }
             
-                    if (Input.GetKeyDown(keyDroite))
-                    {
-                        xMov = 1f;
-                    }
-                    if (Input.GetKeyUp(keyDroite))
-                    {
-                        xMov = 0;
-                    }
+            if (Input.GetKeyDown(keyReculer))
+            {
+                zMov = -1f;
+            }
+            if (Input.GetKeyUp(keyReculer))
+            {
+                zMov = 0;
+            }
             
-                    if (Input.GetKeyDown(keyGauche))
-                    {
-                        xMov = -1f;
-                    }
-                    if (Input.GetKeyUp(keyGauche))
-                    {
-                        xMov = 0;
-                    }
+            if (Input.GetKeyDown(keyDroite))
+            {
+                xMov = 1f;
+            }
+            if (Input.GetKeyUp(keyDroite))
+            {
+                xMov = 0;
+            }
             
-                    Vector3 moveHorizontal = transform.right * xMov;
-                    Vector3 moveVertical = transform.forward * zMov;
+            if (Input.GetKeyDown(keyGauche))
+            {
+                xMov = -1f;
+            }
+            if (Input.GetKeyUp(keyGauche))
+            {
+                xMov = 0;
+            }
             
-                    Vector3 velocity = (moveHorizontal + moveVertical).normalized * speed;
+            Vector3 moveHorizontal = transform.right * xMov;
+            Vector3 moveVertical = transform.forward * zMov;
             
-                    motor.Move(velocity);
+            Vector3 velocity = (moveHorizontal + moveVertical).normalized * speed;
             
-                    float yRot = Input.GetAxisRaw("Mouse X");
+            motor.Move(velocity);
             
-                    Vector3 rotation = new Vector3(0, yRot, 0) * mouseSensitivity;
+            float yRot = Input.GetAxisRaw("Mouse X");
             
-                    motor.Rotate(rotation);
-                    
-                    
-                    
-                    float xRot = Input.GetAxisRaw("Mouse Y");
+            Vector3 rotation = new Vector3(0, yRot, 0) * mouseSensitivity;
             
-                    Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivity;
+            motor.Rotate(rotation);
+
+            float xRot = Input.GetAxisRaw("Mouse Y");
             
-                    motor.RotateCamera(cameraRotation);
+            Vector3 cameraRotation = new Vector3(xRot, 0, 0) * mouseSensitivity;
+            
+            motor.RotateCamera(cameraRotation);
+
+            motor.Jump(isJumping,jumpForce);
+            /*isJumping = false;
+            motor.Jump(isJumping,jumpForce);*/
         }
     }
 }

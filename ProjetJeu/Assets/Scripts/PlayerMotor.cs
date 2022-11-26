@@ -6,10 +6,20 @@ using UnityEngine;
 public class PlayerMotor : MonoBehaviour
 {
     public Camera cam;
+    public PlayerController playerController;
     
     private Vector3 velocity;
     private Vector3 rotation;
     private Vector3 cameraRotation;
+
+    private bool isJumping;
+    private float jumpForce;
+
+    public Transform groundCheck;
+    public float radius;
+    public LayerMask collisionLayers;
+
+    public bool isGrounded;
 
     private Rigidbody rb;
 
@@ -21,6 +31,12 @@ public class PlayerMotor : MonoBehaviour
     public void Move(Vector3 _velocity)
     {
         velocity = _velocity;
+    }
+
+    public void Jump(bool _isJumping , float _jumpForce)
+    {
+        isJumping = _isJumping;
+        jumpForce = _jumpForce;
     }
     
     public void Rotate(Vector3 _rotation)
@@ -37,6 +53,7 @@ public class PlayerMotor : MonoBehaviour
     {
         PerformMovement();
         PerformRotation();
+        PerformJump();  
     }
 
     private void PerformMovement()
@@ -51,5 +68,29 @@ public class PlayerMotor : MonoBehaviour
     {
         rb.MoveRotation(rb.rotation * Quaternion.Euler(rotation));
         cam.transform.Rotate(-cameraRotation);
+    }
+
+    private void PerformJump()
+    {   
+        if (Physics.OverlapSphere(groundCheck.position,radius,collisionLayers).Length > 0)
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+ 
+        if (isJumping && isGrounded)
+        {
+            rb.AddForce(new Vector3(0f,jumpForce,0f));
+            playerController.GetComponent<PlayerController>().isJumping = false;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position,radius);
     }
 }

@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2669682525232642016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3357769561731515993}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3357769561731515993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2669682525232642016}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.014, y: -0.728, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7166434996036310855}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4544243827061279272
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,6 +66,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1014491680854768271}
+  - {fileID: 3357769561731515993}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -132,6 +163,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   mouseSensitivity: 3
+  touches: {fileID: 0}
+  keyAvancer: 0
+  keyReculer: 0
+  keyDroite: 0
+  keyGauche: 0
+  keyJump: 0
+  isJumping: 0
+  jumpForce: 300
+  moov: 1
 --- !u!114 &8341501674892986102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +185,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 5998699399534369572}
+  playerController: {fileID: -4177230318606025612}
+  groundCheck: {fileID: 3357769561731515993}
+  radius: 0.4
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  isGrounded: 0
 --- !u!114 &2056170201444351497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,9 +205,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 5998699399534369572}
+  currentWeapon: []
+  currentRange: 0
+  currentDamage: 0
+  tailleChargeur: 0
+  munRestante: 0
   mask:
     serializedVersion: 2
     m_Bits: 0
+  weaponManager: {fileID: 0}
+  flareSmoke: {fileID: 0}
+  impactBalle: {fileID: 0}
+  playerController: {fileID: 0}
+  boutiqueManager: {fileID: 0}
+  texteMunRestante: {fileID: 0}
+  texteTailleChargeur: {fileID: 0}
 --- !u!114 &6754490548587376461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,11 +233,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   primaryWeapon:
-    name: Gun
-    damage: 10
-    range: 100
-    fireRate: 0
-    graphics: {fileID: 0}
+  - NaN
+  - 10
+  - 100
+  - 0
+  - 0
+  boutiqueManager: {fileID: 0}
   weaponHolder: {fileID: 7962500152768182977}
   weaponLayerName: Weapon
 --- !u!1 &4828722026026474330
