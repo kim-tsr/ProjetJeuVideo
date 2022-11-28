@@ -29,36 +29,36 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        motor = GetComponent<PlayerMotor>();
+        motor = GetComponent<PlayerMotor>(); // Appelle le script PlayerMotor pour pouvoir y recuperer des elements
     }
 
     void Update()
     {
-        if (moov)
+        if (moov) // Si le mouvement est autoriser (pas dans un menu)
         {
-            keyAvancer = touches.keyAvancer;
+            keyAvancer = touches.keyAvancer; // Recupere les touches de deplacements
             keyReculer = touches.keyReculer;
             keyDroite = touches.keyDroite;
             keyGauche = touches.keyGauche;
             keyJump = touches.keyJump;
             keySlow = touches.keySlow;
 
-            if (Input.GetKeyDown(keyJump))
+            if (Input.GetKeyDown(keyJump)) // Si l'utilisateur demande a saute
             {
-                isJumping = true;
+                isJumping = true; // Met le booleen a true, le traitement se fait plus bas
             }
             
-            if (Input.GetKeyDown(keySlow))
+            if (Input.GetKeyDown(keySlow)) // Si le joueur appuye pour Slow
             {
-                speed = speed / 2f;
+                speed = speed / 2f; // On reduit la vitesse de 2
             }
             
-            if (Input.GetKeyUp(keySlow))
+            if (Input.GetKeyUp(keySlow)) // Si il arrete de Slow
             {
-                speed = speed * 2f;
+                speed = speed * 2f; // On remet la vitesse comme avant
             }
             
-            if (Input.GetKeyDown(keyAvancer))
+            if (Input.GetKeyDown(keyAvancer)) // Deplacement sur les axes x et z
             {
                 zMov = 1f;
             }
@@ -94,18 +94,18 @@ public class PlayerController : MonoBehaviour
                 xMov = 0;
             }
             
-            Vector3 moveHorizontal = transform.right * xMov;
+            Vector3 moveHorizontal = transform.right * xMov; // Creer un vecteur dans l'espace en focntion de la position du player et de la demande de le deplacer
             Vector3 moveVertical = transform.forward * zMov;
             
-            Vector3 velocity = (moveHorizontal + moveVertical).normalized * speed;
+            Vector3 velocity = (moveHorizontal + moveVertical).normalized * speed; // Calcul la velocite a l'aide de la vitesse et des deux vecteurs precedents
             
-            motor.Move(velocity);
+            motor.Move(velocity); // Demande a faire le deplacement avec la fonction Move dans PlayerMotor
             
-            float yRot = Input.GetAxisRaw("Mouse X");
+            float yRot = Input.GetAxisRaw("Mouse X"); // Recupere le deplacement de la souris sur l'axe y pour bouger la camera
             
-            Vector3 rotation = new Vector3(0, yRot, 0) * mouseSensitivity;
+            Vector3 rotation = new Vector3(0, yRot, 0) * mouseSensitivity; // Creer un vecteur a l'aide de la valeur yRot et de la sensibilité de la souris souhaité
             
-            motor.Rotate(rotation);
+            motor.Rotate(rotation); // Demande la rotation de la camera a l'aide de la fonction Rotate dans PlayerMotor
 
             float xRot = Input.GetAxisRaw("Mouse Y");
             
@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
             
             motor.RotateCamera(cameraRotation);
 
-            motor.Jump(isJumping,jumpForce);
+            motor.Jump(isJumping,jumpForce); // Traitement du jump dans le script PlayerMotor
             /*isJumping = false;
             motor.Jump(isJumping,jumpForce);*/
         }

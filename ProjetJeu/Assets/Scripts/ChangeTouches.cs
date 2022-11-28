@@ -48,16 +48,16 @@ public class ChangeTouches : MonoBehaviour
 
     public void Update()
     {
-        if (changeAvancer)
+        if (changeAvancer) // Pour changer la touche pour avancer
         {
-            foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+            foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode))) // Parcours les keycode pour voir lequel a ete rentre
             {
-                if (Input.GetKeyDown(keyCode))
+                if (Input.GetKeyDown(keyCode)) // Si le keycode a ete trouve
                 {
-                    avancer = keyCode.ToString();
-                    keyAvancer = keyCode;
-                    textAvancer.text = avancer;
-                    changeAvancer = false;
+                    avancer = keyCode.ToString(); // on change la valeur de avancer qui va nous permettre d'afficher la touche a l'utilisateur
+                    keyAvancer = keyCode; // Change la key avancer avec celle trouver
+                    textAvancer.text = avancer; // Change l'affichage pour l'utilisateur
+                    changeAvancer = false; // Ferme le if une fois que tout est fini pour que ca ne tourne pas en boucle
                 }
             }
         }
@@ -163,7 +163,7 @@ public class ChangeTouches : MonoBehaviour
 
     public void ChangeAvancer()
     {
-        changeAvancer = true;
+        changeAvancer = true; // Ouvre le if dans Update pour changer la touche
     }
     
     public void ChangeReculer()
@@ -203,7 +203,7 @@ public class ChangeTouches : MonoBehaviour
 
     public void Return()
     {
-        canvasTouches.enabled = false;
-        canvasPause.enabled = true;
+        canvasTouches.enabled = false; //  Retourne au menu d'avant en fermant le canvasTouches
+        canvasPause.enabled = true; // pour ouvrir le canvasPause
     }
 }

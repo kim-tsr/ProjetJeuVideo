@@ -23,22 +23,22 @@ public class BoutiqueManager : MonoBehaviour
 
     private void Start()
     {
-        currentWeapon = playerWeapon.Pistolet;
-        currentRange = currentWeapon[1];
-        currentDamage = currentWeapon[0];
+        currentWeapon = playerWeapon.Pistolet; // Initialise la premiere arme a Pistolet. Toute les valeurs de la liste de Pistolet pourra etre recuperer ici
+        currentRange = currentWeapon[1]; // Initialise la portée de la premiere arme
+        currentDamage = currentWeapon[0]; 
         currentTailleChargeur = currentWeapon[3];
     }
 
     void Update()
     {
-        if (boolPistolet)
+        if (boolPistolet) // Si on souhaite changer d'arme le booleen se met a true
         {
-            currentWeapon = playerWeapon.Pistolet;
+            currentWeapon = playerWeapon.Pistolet; // Change l'arme actuel en Pistolet et toutes les valeurs sont changées
             currentDamage = playerWeapon.Pistolet[0];
             currentRange = playerWeapon.Pistolet[1];
             currentTailleChargeur = playerWeapon.Pistolet[3];
             playerShoot.GetComponent<PlayerShoot>().munRestante = currentTailleChargeur;
-            boolPistolet = false;
+            boolPistolet = false; // Remet le booleen a false pour que le changement ne se fasse pas en permanence
         }
         
         if (boolMitraillette)
@@ -74,8 +74,8 @@ public class BoutiqueManager : MonoBehaviour
 
     public void ChangePistolet()
     {
-        boolPistolet = true;
-        boolMitraillette = false;
+        boolPistolet = true; // Change le booleen du Pistolet pour changer son arme actuel en pistolet et pour pouvoir faire les changements de variables
+        boolMitraillette = false; // Pour s'assurer que les autres booleens sont bien a false
         boolFusilAssault = false;
         boolSniper = false;
     }

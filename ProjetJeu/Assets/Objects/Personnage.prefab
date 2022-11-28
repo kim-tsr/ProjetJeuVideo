@@ -47,6 +47,8 @@ GameObject:
   - component: {fileID: 8341501674892986102}
   - component: {fileID: 2056170201444351497}
   - component: {fileID: 6754490548587376461}
+  - component: {fileID: 803396498572713469}
+  - component: {fileID: 3437128373080205002}
   m_Layer: 0
   m_Name: Personnage
   m_TagString: Untagged
@@ -169,6 +171,7 @@ MonoBehaviour:
   keyDroite: 0
   keyGauche: 0
   keyJump: 0
+  keySlow: 0
   isJumping: 0
   jumpForce: 300
   moov: 1
@@ -220,6 +223,8 @@ MonoBehaviour:
   boutiqueManager: {fileID: 0}
   texteMunRestante: {fileID: 0}
   texteTailleChargeur: {fileID: 0}
+  changeTouches: {fileID: 0}
+  keyReload: 0
 --- !u!114 &6754490548587376461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +246,39 @@ MonoBehaviour:
   boutiqueManager: {fileID: 0}
   weaponHolder: {fileID: 7962500152768182977}
   weaponLayerName: Weapon
+--- !u!114 &803396498572713469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4544243827061279272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f16953869ba2da94dac85f986f0cc174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  life: 100
+--- !u!114 &3437128373080205002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4544243827061279272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86af86099f653244a88586519c5e03fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasPause: {fileID: 0}
+  canvasCrosshair: {fileID: 0}
+  canvasBoutique: {fileID: 0}
+  playerController: {fileID: -4177230318606025612}
+  boolPause: 1
+  boolBoutique: 1
+  changeTouches: {fileID: 0}
+  keyBoutique: 0
 --- !u!1 &4828722026026474330
 GameObject:
   m_ObjectHideFlags: 0
