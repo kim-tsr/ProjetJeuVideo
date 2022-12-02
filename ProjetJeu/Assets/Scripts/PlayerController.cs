@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public KeyCode keyGauche;
     public KeyCode keyJump;
     public KeyCode keySlow;
+    public KeyCode keyCut;
+    public KeyCode keyArme;
 
     public bool isJumping;
     public float jumpForce;
@@ -42,11 +44,33 @@ public class PlayerController : MonoBehaviour
             keyGauche = touches.keyGauche;
             keyJump = touches.keyJump;
             keySlow = touches.keySlow;
+            keyCut = touches.keyChangeCut;
+            keyArme = touches.keyChangeArme;
+
+
+
+            if (Input.GetKeyDown(keyCut))
+            {
+                this.GetComponent<WeaponManager>().boolCut = true;
+                this.GetComponent<WeaponManager>().boolArme = false;
+            }
+
+            if (Input.GetKeyDown(keyArme))
+            {
+                this.GetComponent<WeaponManager>().boolCut = false;
+                this.GetComponent<WeaponManager>().boolArme = true;
+            }
+            
+            
+            
 
             if (Input.GetKeyDown(keyJump)) // Si l'utilisateur demande a saute
             {
                 isJumping = true; // Met le booleen a true, le traitement se fait plus bas
             }
+            
+            
+            
             
             if (Input.GetKeyDown(keySlow)) // Si le joueur appuye pour Slow
             {
@@ -57,6 +81,10 @@ public class PlayerController : MonoBehaviour
             {
                 speed = speed * 2f; // On remet la vitesse comme avant
             }
+            
+            
+            
+            
             
             if (Input.GetKeyDown(keyAvancer)) // Deplacement sur les axes x et z
             {

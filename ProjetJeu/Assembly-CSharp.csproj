@@ -52,18 +52,19 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\BoutiqueManager.cs" />
      <Compile Include="Assets\Scripts\WeaponManager.cs" />
      <Compile Include="Assets\Scripts\PlayerMotor.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Scripts\PauseManager.cs" />
+     <Compile Include="Assets\InventaireManager.cs" />
      <Compile Include="Assets\Scripts\PlayerShoot.cs" />
+     <Compile Include="Assets\Scripts\PlayerLife.cs" />
      <Compile Include="Assets\Scripts\PlayerWeapon.cs" />
      <Compile Include="Assets\Scripts\MenuManager.cs" />
      <Compile Include="Assets\Scripts\ChangeTouches.cs" />
      <Compile Include="Assets\Scripts\WeaponGraphics.cs" />
-     <Compile Include="Assets\Scripts\PlayerLife.cs" />
-     <Compile Include="Assets\GameManager.cs" />
      <None Include="Assets\OccaSoftware\MassiveCrosshairBundle\Readme.txt" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.29f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

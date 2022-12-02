@@ -9,7 +9,8 @@ public class PlayerWeapon
     public float[] Mitraillette = new[] {20f, 250f, 0f, 20f}; 
     public float[] FusilAssault = new[] {40f, 500f, 0f, 30f}; 
     public float[] Sniper = new[] {100f, 1000f, 0f, 5f};
-    
+    public float[] Cut = new[] {34f,10f,0f,1f};
+
     /*
      * arme[0] = damage
      * arme[1] = range

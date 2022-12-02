@@ -34,9 +34,8 @@ public class PlayerShoot : MonoBehaviour
     public ChangeTouches changeTouches;
     public KeyCode keyReload;
 
-    public GameManager gameManager;
+    public bool boolCut = false;
 
-    public LayerMask maskEnnemie;
     
     void Start()
     {
@@ -58,6 +57,11 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
+        if (boolCut)
+        {
+            munRestante = tailleChargeur;
+        }
+        
         currentWeapon = weaponManager.GetCurrentWeapon(); // Met a jour en permanence les valeurs des armes 
         currentRange = currentWeapon[1];
         currentDamage = currentWeapon[0];
@@ -68,6 +72,7 @@ public class PlayerShoot : MonoBehaviour
 
         keyReload = changeTouches.keyReload; // Recupere la touche de Reload dans le script ChangeTouches
 
+
         if (Input.GetKeyDown(keyReload)) // Si l'utilisateur appuye sur la touche de Reload
         {
             Reload(); // Appelle la fonction Reload plus bas
@@ -77,10 +82,18 @@ public class PlayerShoot : MonoBehaviour
         {
             if (playerController.moov) // On s'assure que le joueur a le droit de se deplacer et de tirer
             {
-                if (munRestante>0) // Si il reste des balles dans le chargeur
+                if (boolCut)
                 {
-                    Shoot(); // Appelle la fonction de tir plus bas
-                    munRestante -= 1; // Enleve une balle dans le chargeur
+                    Cut();
+                }
+                
+                else
+                {
+                    if (munRestante>0) // Si il reste des balles dans le chargeur
+                    {
+                        Shoot(); // Appelle la fonction de tir plus bas
+                        munRestante -= 1; // Enleve une balle dans le chargeur
+                    }
                 }
             }
         }
@@ -106,8 +119,21 @@ public class PlayerShoot : MonoBehaviour
         flareSmoke.Play(); // On fait jouer l'effet de fume a la sortie de l'arme
     }
 
-    private void Reload()
+    public void Reload()
     {
         munRestante = tailleChargeur; // Remet le nombre de balle souhaite dans le chargeur
+    }
+
+    private void Cut()
+    {
+        RaycastHit hit; // Defini un point de collision
+
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, currentRange, mask)) // Si il y a bien une collision sur l'objet souhaite
+        {
+            Debug.Log("Objet touché : "+hit.collider.name); // Affiche dans la Console la collision
+
+            hit.transform.gameObject.GetComponent<PlayerLife>().life -= currentDamage; // Enleve la vie du GameObject qui a recu le hit
+            // La vie est recuperer grace au script PlayerLife. On lui enleve les degats que fait l'arme que possede le joueur qui a tire
+        }
     }
 }

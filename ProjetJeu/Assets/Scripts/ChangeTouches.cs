@@ -17,6 +17,8 @@ public class ChangeTouches : MonoBehaviour
     public string slow = "LeftShift";
     public string reload = "R";
     public string boutique = "B";
+    public string changeArme = "&";
+    public string changeCut = "E";
 
     public bool changeAvancer = false;
     public bool changeReculer = false;
@@ -26,6 +28,8 @@ public class ChangeTouches : MonoBehaviour
     public bool changeSlow = false;
     public bool changeReload = false;
     public bool changeBoutique = false;
+    public bool changeChangeArme = false;
+    public bool changeChangeCut = false;
 
     public Text textAvancer;
     public Text textReculer;
@@ -35,6 +39,8 @@ public class ChangeTouches : MonoBehaviour
     public Text textSlow;
     public Text textReload;
     public Text textBoutique;
+    public Text textChangeArme;
+    public Text textChangeCut;
 
     public KeyCode keyAvancer = KeyCode.Z;
     public KeyCode keyReculer = KeyCode.S;
@@ -44,6 +50,8 @@ public class ChangeTouches : MonoBehaviour
     public KeyCode keySlow = KeyCode.LeftShift;
     public KeyCode keyReload = KeyCode.R;
     public KeyCode keyBoutique = KeyCode.B;
+    public KeyCode keyChangeArme = KeyCode.Alpha1;
+    public KeyCode keyChangeCut = KeyCode.Alpha2;
 
 
     public void Update()
@@ -159,6 +167,34 @@ public class ChangeTouches : MonoBehaviour
                 }
             }
         }
+        
+        if (changeChangeArme)
+        {
+            foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(keyCode))
+                {
+                    changeArme = keyCode.ToString();
+                    keyChangeArme = keyCode;
+                    textChangeArme.text = changeArme;
+                    changeChangeArme = false;
+                }
+            }
+        }
+        
+        if (changeChangeCut)
+        {
+            foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(keyCode))
+                {
+                    changeCut = keyCode.ToString();
+                    keyChangeCut = keyCode;
+                    textChangeCut.text = changeCut;
+                    changeChangeCut = false;
+                }
+            }
+        }
     }
 
     public void ChangeAvancer()
@@ -199,6 +235,16 @@ public class ChangeTouches : MonoBehaviour
     public void ChangeBoutique()
     {
         changeBoutique = true;
+    }
+    
+    public void ChangeChangeArme()
+    {
+        changeChangeArme = true;
+    }
+    
+    public void ChangeChangeCut()
+    {
+        changeChangeCut = true;
     }
 
     public void Return()
