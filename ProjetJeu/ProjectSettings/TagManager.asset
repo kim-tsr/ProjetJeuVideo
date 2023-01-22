@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Mur
   layers:
   - Default
   - TransparentFX
@@ -12,18 +13,18 @@ TagManager:
   - Water
   - UI
   - Sol
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Heal
+  - Grenade
+  - MunMitraillette
+  - MunFa
+  - MunSniper
+  - Arme1
+  - Arme2
+  - Argent
+  - Mitraillette
+  - FA
+  - Sniper
   - 
   - 
   - 

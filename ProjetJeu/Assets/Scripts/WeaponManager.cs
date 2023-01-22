@@ -8,7 +8,8 @@ public class WeaponManager : MonoBehaviour
 {
     public float[] primaryWeapon;
 
-    private float[] currentWeapon;
+    private float[] currentWeapon1;
+    private float[] currentWeapon2;
     private PlayerWeapon currentGraphics;
 
     public PlayerWeapon cut;
@@ -19,35 +20,51 @@ public class WeaponManager : MonoBehaviour
 
     public string weaponLayerName = "Weapon";
 
-    public bool boolCut = false;
-    public bool boolArme = false;
-    public GameObject objectArme;
+    public bool boolCut = true;
+    public bool boolArme1 = false;
+    public bool boolArme2 = false;
+    public GameObject objectArme1;
+    public GameObject objectArme2;
     public GameObject objectCut;
 
     private void Start()
     {
         EquipWeapon(primaryWeapon);
-        currentWeapon = boutiqueManager.currentWeapon;
+        currentWeapon1 = boutiqueManager.currentWeapon1;
+        currentWeapon2 = boutiqueManager.currentWeapon2;
+        boolCut = true;
     }
 
     public float[] GetCurrentWeapon()
     {
         if (boolCut)
         {
-            objectArme.SetActive(false);
+            objectArme1.SetActive(false);
+            objectArme2.SetActive(false);
             objectCut.SetActive(true);
             GetComponent<PlayerShoot>().boolCut = true;
             return cut.Cut;
         }
 
-        if (boolArme)
+        if (boolArme1 && boutiqueManager.currentWeapon1 != GetComponent<PlayerWeapon>().Vide)
         {
-            objectArme.SetActive(true);
+            objectArme1.SetActive(true);
+            objectArme2.SetActive(false);
             objectCut.SetActive(false);
             GetComponent<PlayerShoot>().boolCut = false;
-            GetComponent<PlayerShoot>().Reload();
+            return boutiqueManager.currentWeapon1;
         }
-        return boutiqueManager.currentWeapon;
+
+        if (boolArme2 && boutiqueManager.currentWeapon2 != GetComponent<PlayerWeapon>().Vide)
+        {
+            objectArme1.SetActive(false);
+            objectArme2.SetActive(true);
+            objectCut.SetActive(false);
+            GetComponent<PlayerShoot>().boolCut = false;
+            return boutiqueManager.currentWeapon2;
+        }
+        return cut.Cut;
+
     }
     
     public PlayerWeapon GetCurrentGraphics()
@@ -57,7 +74,7 @@ public class WeaponManager : MonoBehaviour
 
     void EquipWeapon(float[] _weapon)
     {
-        currentWeapon = _weapon;
+        currentWeapon1 = _weapon;
         
         /*
 
@@ -72,3 +89,7 @@ public class WeaponManager : MonoBehaviour
         }*/
     }
 }
+
+
+
+/*"com.unity.package-manager-ui": "2.1.2",*/

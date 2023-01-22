@@ -15,12 +15,17 @@ public class PlayerShoot : MonoBehaviour
     public float currentDamage;
     public float tailleChargeur;
     public float munRestante;
+    public float styleMun;
 
     public LayerMask mask;
 
     public WeaponManager weaponManager;
 
-    public ParticleSystem flareSmoke;
+    public PlayerWeapon playerWeapon;
+    public ParticleSystem flareSmokePistolet;
+    public ParticleSystem flareSmokeMitraillette;
+    public ParticleSystem flareSmokeFA;
+    public ParticleSystem flareSmokeSniper;
 
     public GameObject impactBalle;
 
@@ -36,6 +41,15 @@ public class PlayerShoot : MonoBehaviour
 
     public bool boolCut = false;
 
+    public InventaireManager inventaireManager;
+
+
+    public MunitionArme muniPistolet;
+    public MunitionArme muniSniper;
+    public MunitionArme muniMitraillette;
+    public MunitionArme muniFA;
+
+
     
     void Start()
     {
@@ -49,6 +63,7 @@ public class PlayerShoot : MonoBehaviour
         currentRange = currentWeapon[1];
         currentDamage = currentWeapon[0];
         tailleChargeur = currentWeapon[3];
+        styleMun = currentWeapon[4];
         munRestante = tailleChargeur;
 
         texteMunRestante.text = munRestante.ToString(); // Affiche sur le texte MunRestante les balles qu'il reste dans le chargeur
@@ -61,17 +76,38 @@ public class PlayerShoot : MonoBehaviour
         {
             munRestante = tailleChargeur;
         }
+
+        if (currentWeapon == playerWeapon.Pistolet)
+        {
+            munRestante = muniPistolet.munRestante;
+        }
+        
+        if (currentWeapon == playerWeapon.Mitraillette)
+        {
+            munRestante = muniMitraillette.munRestante;
+        }
+        
+        if (currentWeapon == playerWeapon.FusilAssault)
+        {
+            munRestante = muniFA.munRestante;
+        }
+        
+        if (currentWeapon == playerWeapon.Sniper)
+        {
+            munRestante = muniSniper.munRestante;
+        }
         
         currentWeapon = weaponManager.GetCurrentWeapon(); // Met a jour en permanence les valeurs des armes 
         currentRange = currentWeapon[1];
         currentDamage = currentWeapon[0];
         tailleChargeur = currentWeapon[3];
+        styleMun = currentWeapon[4];
         
         texteMunRestante.text = munRestante.ToString();
         texteTailleChargeur.text = tailleChargeur.ToString();
 
         keyReload = changeTouches.keyReload; // Recupere la touche de Reload dans le script ChangeTouches
-
+        
 
         if (Input.GetKeyDown(keyReload)) // Si l'utilisateur appuye sur la touche de Reload
         {
@@ -92,7 +128,25 @@ public class PlayerShoot : MonoBehaviour
                     if (munRestante>0) // Si il reste des balles dans le chargeur
                     {
                         Shoot(); // Appelle la fonction de tir plus bas
-                        munRestante -= 1; // Enleve une balle dans le chargeur
+                        if (currentWeapon == playerWeapon.Pistolet)
+                        {
+                            munRestante = muniPistolet.munRestante -= 1;
+                        }
+        
+                        if (currentWeapon == playerWeapon.Mitraillette)
+                        {
+                            munRestante = muniMitraillette.munRestante -=1;
+                        }
+        
+                        if (currentWeapon == playerWeapon.FusilAssault)
+                        {
+                            munRestante = muniFA.munRestante -= 1;
+                        }
+        
+                        if (currentWeapon == playerWeapon.Sniper)
+                        {
+                            muniSniper.munRestante -= 1;
+                        } // Enleve une balle dans le chargeur
                     }
                 }
             }
@@ -116,12 +170,47 @@ public class PlayerShoot : MonoBehaviour
             Destroy(hitEffect,2f); // On detruit l'effet de hit apres deux secondes
         }
 
-        flareSmoke.Play(); // On fait jouer l'effet de fume a la sortie de l'arme
+        if (currentWeapon == playerWeapon.Pistolet)
+        {
+            flareSmokePistolet.Play();
+        }
+        if (currentWeapon == playerWeapon.Mitraillette)
+        {
+            flareSmokeMitraillette.Play();
+        }
+        if (currentWeapon == playerWeapon.FusilAssault)
+        {
+            flareSmokeFA.Play();
+        }
+        if (currentWeapon == playerWeapon.Sniper)
+        {
+            flareSmokeSniper.Play();
+        }
     }
 
     public void Reload()
     {
-        munRestante = tailleChargeur; // Remet le nombre de balle souhaite dans le chargeur
+        if (styleMun == 1) // Regarde qu'elle style de mun doit etre utilise
+        {
+            if (currentWeapon == playerWeapon.Pistolet)
+            {
+                muniPistolet.Reload(inventaireManager.listeNbrInventaire[4]);
+            }
+            else
+            {
+                muniMitraillette.Reload(inventaireManager.listeNbrInventaire[4]);
+            }
+        }
+
+        if (styleMun == 2)
+        {
+            muniFA.Reload(inventaireManager.listeNbrInventaire[5]);
+        }
+
+        if (styleMun == 3)
+        {
+            muniSniper.Reload(inventaireManager.listeNbrInventaire[6]);
+        }
     }
 
     private void Cut()

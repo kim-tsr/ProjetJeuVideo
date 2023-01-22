@@ -17,8 +17,10 @@ public class ChangeTouches : MonoBehaviour
     public string slow = "LeftShift";
     public string reload = "R";
     public string boutique = "B";
-    public string changeArme = "&";
-    public string changeCut = "E";
+    public string changeArme1 = "Alpha1";
+    public string changeArme2 = "Alpha2";
+    public string changeCut = "Alpha3";
+    public string inventaire = "Tab";
 
     public bool changeAvancer = false;
     public bool changeReculer = false;
@@ -28,8 +30,10 @@ public class ChangeTouches : MonoBehaviour
     public bool changeSlow = false;
     public bool changeReload = false;
     public bool changeBoutique = false;
-    public bool changeChangeArme = false;
+    public bool changeChangeArme1 = false;
+    public bool changeChangeArme2 = false;
     public bool changeChangeCut = false;
+    public bool changeInventaire = false;
 
     public Text textAvancer;
     public Text textReculer;
@@ -39,8 +43,10 @@ public class ChangeTouches : MonoBehaviour
     public Text textSlow;
     public Text textReload;
     public Text textBoutique;
-    public Text textChangeArme;
+    public Text textChangeArme1;
+    public Text textChangeArme2;
     public Text textChangeCut;
+    public Text textInventaire;
 
     public KeyCode keyAvancer = KeyCode.Z;
     public KeyCode keyReculer = KeyCode.S;
@@ -50,8 +56,10 @@ public class ChangeTouches : MonoBehaviour
     public KeyCode keySlow = KeyCode.LeftShift;
     public KeyCode keyReload = KeyCode.R;
     public KeyCode keyBoutique = KeyCode.B;
-    public KeyCode keyChangeArme = KeyCode.Alpha1;
-    public KeyCode keyChangeCut = KeyCode.Alpha2;
+    public KeyCode keyChangeArme1 = KeyCode.Alpha1;
+    public KeyCode keyChangeArme2 = KeyCode.Alpha2;
+    public KeyCode keyChangeCut = KeyCode.Alpha3;
+    public KeyCode keyInventaire = KeyCode.Tab;
 
 
     public void Update()
@@ -168,16 +176,30 @@ public class ChangeTouches : MonoBehaviour
             }
         }
         
-        if (changeChangeArme)
+        if (changeChangeArme1)
         {
             foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
             {
                 if (Input.GetKeyDown(keyCode))
                 {
-                    changeArme = keyCode.ToString();
-                    keyChangeArme = keyCode;
-                    textChangeArme.text = changeArme;
-                    changeChangeArme = false;
+                    changeArme1 = keyCode.ToString();
+                    keyChangeArme1 = keyCode;
+                    textChangeArme1.text = changeArme1;
+                    changeChangeArme1 = false;
+                }
+            }
+        }
+        
+        if (changeChangeArme2)
+        {
+            foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(keyCode))
+                {
+                    changeArme2 = keyCode.ToString();
+                    keyChangeArme2 = keyCode;
+                    textChangeArme2.text = changeArme2;
+                    changeChangeArme2 = false;
                 }
             }
         }
@@ -192,6 +214,20 @@ public class ChangeTouches : MonoBehaviour
                     keyChangeCut = keyCode;
                     textChangeCut.text = changeCut;
                     changeChangeCut = false;
+                }
+            }
+        }
+        
+        if (changeInventaire)
+        {
+            foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode)))
+            {
+                if (Input.GetKeyDown(keyCode))
+                {
+                    inventaire = keyCode.ToString();
+                    keyInventaire = keyCode;
+                    textInventaire.text = inventaire;
+                    changeInventaire = false;
                 }
             }
         }
@@ -237,14 +273,24 @@ public class ChangeTouches : MonoBehaviour
         changeBoutique = true;
     }
     
-    public void ChangeChangeArme()
+    public void ChangeChangeArme1()
     {
-        changeChangeArme = true;
+        changeChangeArme1 = true;
+    }
+    
+    public void ChangeChangeArme2()
+    {
+        changeChangeArme2 = true;
     }
     
     public void ChangeChangeCut()
     {
         changeChangeCut = true;
+    }
+
+    public void ChangeInventaire()
+    {
+        changeInventaire = true;
     }
 
     public void Return()

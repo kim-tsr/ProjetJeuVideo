@@ -11,12 +11,13 @@ public class PauseManager : MonoBehaviour
 
     public PlayerController playerController;
 
-    public MenuManager gameManager;
+    public MenuManager menuManager;
 
     public void ChangerTouches() // Quand on appuye sur le bouton Changer Touche
     {
         canvasPause.enabled = false; // On ferme le menu Pause
         canvasTouches.enabled = true; // Pour ouvrir le menu pour changer less touches
+        menuManager.boolPause = false;
     }
 
     public void Resume() // Quand on appuye sur le bouton Resume
@@ -24,6 +25,7 @@ public class PauseManager : MonoBehaviour
         canvasPause.enabled = false; // Ferme le menu Pause
         canvasCrosshair.enabled = true; // Remet en place le canvas du cross hair
         playerController.moov = true; // Remet en place les mouvements, l'utilisateur peut rejouer
-        gameManager.GetComponent<MenuManager>().boolBoutique = true; // Autorise l'ouverture du menu boutique puisque le menu Pause est ferme
+        menuManager.GetComponent<MenuManager>().boolBoutique = true; // Autorise l'ouverture du menu boutique puisque le menu Pause est ferme
+        menuManager.GetComponent<MenuManager>().boolInventaire = true; // Autorise l'ouverture de l'inventaire puisque le menu Pause est ferme
     }
 }
