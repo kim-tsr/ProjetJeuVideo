@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Net.Mime;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(WeaponManager))]
-public class PlayerShoot : MonoBehaviour
+public class PlayerShoot : MonoBehaviourPunCallbacks
 {
 
     public Camera cam;
@@ -13,6 +14,7 @@ public class PlayerShoot : MonoBehaviour
     public float[] currentWeapon;
     public float currentRange;
     public float currentDamage;
+    public float currentFireRate;
     public float tailleChargeur;
     public float munRestante;
     public float styleMun;
@@ -49,10 +51,15 @@ public class PlayerShoot : MonoBehaviour
     public MunitionArme muniMitraillette;
     public MunitionArme muniFA;
 
+    public PhotonView photonView;
+
+    public Canvas canvasScoreBoard;
+
 
     
     void Start()
     {
+        photonView = PhotonView.Get(this);
         if (cam == null) // S'assure qu'on est une cam et qu'on peut donc tirer
         {
             Debug.LogError("Pas de cam pour le système de tir");
@@ -62,6 +69,7 @@ public class PlayerShoot : MonoBehaviour
         currentWeapon = weaponManager.GetCurrentWeapon(); // Initialise les valeurs de l'arme avec WeaponManager
         currentRange = currentWeapon[1];
         currentDamage = currentWeapon[0];
+        currentFireRate = currentWeapon[2];
         tailleChargeur = currentWeapon[3];
         styleMun = currentWeapon[4];
         munRestante = tailleChargeur;
@@ -100,6 +108,7 @@ public class PlayerShoot : MonoBehaviour
         currentWeapon = weaponManager.GetCurrentWeapon(); // Met a jour en permanence les valeurs des armes 
         currentRange = currentWeapon[1];
         currentDamage = currentWeapon[0];
+        currentFireRate = currentWeapon[2];
         tailleChargeur = currentWeapon[3];
         styleMun = currentWeapon[4];
         
@@ -113,55 +122,82 @@ public class PlayerShoot : MonoBehaviour
         {
             Reload(); // Appelle la fonction Reload plus bas
         }
-        
-        if (Input.GetButtonDown("Fire1")) // Si il appuye sur la touche pour tirer (deja defini dans Unity)
+
+
+        if (currentFireRate<= 0 || boolCut)
         {
-            if (playerController.moov) // On s'assure que le joueur a le droit de se deplacer et de tirer
+            if (Input.GetButtonDown("Fire1")) // Si il appuye sur la touche pour tirer (deja defini dans Unity)
             {
-                if (boolCut)
-                {
-                    Cut();
-                }
+                PreparationShoot();
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("Fire1")) // Si il appuye sur la touche pour tirer (deja defini dans Unity)
+            {
+                InvokeRepeating("PreparationShoot", 0f,1f/currentFireRate);
+            }
+            else if (Input.GetButtonUp("Fire1"))
+            {
+                CancelInvoke("PreparationShoot");
+            }
+        }
+        
+        
+    }
+
+    public void PreparationShoot()
+    {
+        if (playerController.moov) // On s'assure que le joueur a le droit de se deplacer et de tirer
+        {
+            if (boolCut)
+            {
+                photonView.RPC("Cut", RpcTarget.All);
+            }
                 
-                else
+            else
+            {
+                if (munRestante>0) // Si il reste des balles dans le chargeur
                 {
-                    if (munRestante>0) // Si il reste des balles dans le chargeur
+                    photonView.RPC("Shoot", RpcTarget.All, currentDamage,currentRange); // Appelle la fonction de tir plus bas
+                    if (currentWeapon == playerWeapon.Pistolet)
                     {
-                        Shoot(); // Appelle la fonction de tir plus bas
-                        if (currentWeapon == playerWeapon.Pistolet)
-                        {
-                            munRestante = muniPistolet.munRestante -= 1;
-                        }
-        
-                        if (currentWeapon == playerWeapon.Mitraillette)
-                        {
-                            munRestante = muniMitraillette.munRestante -=1;
-                        }
-        
-                        if (currentWeapon == playerWeapon.FusilAssault)
-                        {
-                            munRestante = muniFA.munRestante -= 1;
-                        }
-        
-                        if (currentWeapon == playerWeapon.Sniper)
-                        {
-                            muniSniper.munRestante -= 1;
-                        } // Enleve une balle dans le chargeur
+                        munRestante = muniPistolet.munRestante -= 1;
                     }
+        
+                    if (currentWeapon == playerWeapon.Mitraillette)
+                    {
+                        munRestante = muniMitraillette.munRestante -=1;
+                    }
+        
+                    if (currentWeapon == playerWeapon.FusilAssault)
+                    {
+                        munRestante = muniFA.munRestante -= 1;
+                    }
+        
+                    if (currentWeapon == playerWeapon.Sniper)
+                    {
+                        muniSniper.munRestante -= 1;
+                    } // Enleve une balle dans le chargeur
                 }
             }
         }
     }
 
-    private void Shoot()
+    [PunRPC]
+    private void Shoot(float dammage, float range)
     {
         RaycastHit hit; // Defini un point de collision
 
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, currentRange, mask)) // Si il y a bien une collision sur l'objet souhaite
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, range, mask)) // Si il y a bien une collision sur l'objet souhaite
         {
             Debug.Log("Objet touché : "+hit.collider.name); // Affiche dans la Console la collision
 
-            hit.transform.gameObject.GetComponent<PlayerLife>().life -= currentDamage; // Enleve la vie du GameObject qui a recu le hit
+            hit.transform.gameObject.GetComponent<PlayerLife>().life -= dammage; // Enleve la vie du GameObject qui a recu le hit
+            if (hit.transform.gameObject.GetComponent<PlayerLife>().life <= 0)
+            {
+                canvasScoreBoard.GetComponent<ScoreBoardManager>().FaitKill();
+            }
             // La vie est recuperer grace au script PlayerLife. On lui enleve les degats que fait l'arme que possede le joueur qui a tire
             
             Vector3 pos = hit.point; // On recupere le point de collision sous forme de vecteur 
@@ -213,8 +249,10 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
+    [PunRPC]
     private void Cut()
     {
+        Debug.Log("Le personnage Cut");
         RaycastHit hit; // Defini un point de collision
 
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, currentRange, mask)) // Si il y a bien une collision sur l'objet souhaite

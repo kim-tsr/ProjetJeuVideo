@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlayerWeapon : MonoBehaviour
 {
     public float[] Vide = new float[5];
-    public float[] Pistolet = new[] {10f, 100f, 0f, 10f, 1f}; // Liste des valeurs d'une arme 
-    public float[] Mitraillette = new[] {20f, 250f, 0f, 20f,1f}; 
-    public float[] FusilAssault = new[] {40f, 500f, 0f, 30f,2f}; 
-    public float[] Sniper = new[] {100f, 1000f, 0f, 5f,3f};
-    public float[] Cut = new[] {34f,10f,0f,1f,0f};
+    public float[] Pistolet = new[] {10f, 100f, 2f, 10f, 1f}; // Liste des valeurs d'une arme 
+    public float[] Mitraillette = new[] {20f, 250f, 5f, 20f,1f}; 
+    public float[] FusilAssault = new[] {40f, 500f, 10f, 30f,2f}; 
+    public float[] Sniper = new[] {100f, 1000f, 1f, 5f,3f};
+    public float[] Cut = new[] {34f,5f,0f,1f,0f};
 
     /*
      * arme[0] = damage

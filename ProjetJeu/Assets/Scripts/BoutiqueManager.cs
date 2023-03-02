@@ -9,11 +9,13 @@ public class BoutiqueManager : MonoBehaviour
     public PlayerWeapon playerWeapon;
     public float currentRange1;
     public float currentDamage1;
+    public float currentFireRate1;
     public float currentTailleChargeur1;
     
     public float[] currentWeapon2;
     public float currentRange2;
     public float currentDamage2;
+    public float currentFireRate2;
     public float currentTailleChargeur2;
 
     public PlayerShoot playerShoot;
@@ -75,6 +77,7 @@ public class BoutiqueManager : MonoBehaviour
             currentWeapon1 = playerWeapon.Vide;
             currentDamage1 = playerWeapon.Vide[0];
             currentRange1 = playerWeapon.Vide[1];
+            currentFireRate1 = playerWeapon.Vide[2];
             currentTailleChargeur1 = playerWeapon.Vide[3];
             PossessionArme1 = false;
             playerController.PrendreCut();
@@ -86,6 +89,7 @@ public class BoutiqueManager : MonoBehaviour
             currentWeapon2 = playerWeapon.Vide;
             currentDamage2 = playerWeapon.Vide[0];
             currentRange2 = playerWeapon.Vide[1];
+            currentFireRate2 = playerWeapon.Vide[2];
             currentTailleChargeur2 = playerWeapon.Vide[3];
             PossessionArme2 = false;
             playerController.PrendreCut();
@@ -131,6 +135,7 @@ public class BoutiqueManager : MonoBehaviour
         currentWeapon2 = playerWeapon.Pistolet; // Change l'arme actuel en Pistolet et toutes les valeurs sont changées
         currentDamage2 = playerWeapon.Pistolet[0];
         currentRange2 = playerWeapon.Pistolet[1];
+        currentFireRate2 = playerWeapon.Pistolet[2];
         currentTailleChargeur2 = playerWeapon.Pistolet[3];
         playerShoot.GetComponent<PlayerShoot>().munRestante = currentTailleChargeur2;
         boolPistolet = false; // Remet le booleen a false pour que le changement ne se fasse pas en permanence
@@ -146,6 +151,7 @@ public class BoutiqueManager : MonoBehaviour
         currentWeapon1 = playerWeapon.Mitraillette;
         currentDamage1 = playerWeapon.Mitraillette[0];
         currentRange1 = playerWeapon.Mitraillette[1];
+        currentFireRate1 = playerWeapon.Mitraillette[2];
         currentTailleChargeur1 = playerWeapon.Mitraillette[3];
         playerShoot.GetComponent<PlayerShoot>().munRestante = currentTailleChargeur1;
         boolMitraillette = false;
@@ -161,6 +167,7 @@ public class BoutiqueManager : MonoBehaviour
         currentWeapon1 = playerWeapon.FusilAssault;
         currentDamage1 = playerWeapon.FusilAssault[0];
         currentRange1 = playerWeapon.FusilAssault[1];
+        currentFireRate1 = playerWeapon.FusilAssault[2];
         currentTailleChargeur1 = playerWeapon.FusilAssault[3];
         playerShoot.GetComponent<PlayerShoot>().munRestante = currentTailleChargeur1;
         boolFusilAssault = false;
@@ -176,6 +183,7 @@ public class BoutiqueManager : MonoBehaviour
         currentWeapon1 = playerWeapon.Sniper;
         currentDamage1 = playerWeapon.Sniper[0];
         currentRange1 = playerWeapon.Sniper[1];
+        currentFireRate1 = playerWeapon.Sniper[2];
         currentTailleChargeur1 = playerWeapon.Sniper[3];
         playerShoot.GetComponent<PlayerShoot>().munRestante = currentTailleChargeur1;
         boolSniper = false;

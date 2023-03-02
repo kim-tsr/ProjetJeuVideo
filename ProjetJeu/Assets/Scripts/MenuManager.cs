@@ -9,6 +9,7 @@ public class MenuManager : MonoBehaviour
     public GameObject canvasCrosshair;
     public GameObject canvasBoutique;
     public GameObject canvasInventaire;
+    public GameObject canvasScoreBoard;
     public PlayerController playerController;
 
     public bool boolPause = true;
@@ -18,6 +19,7 @@ public class MenuManager : MonoBehaviour
     public ChangeTouches changeTouches;
     public KeyCode keyBoutique;
     public KeyCode keyInventaire;
+    public KeyCode keyScoreBoard;
 
     void Update()
     {
@@ -34,6 +36,21 @@ public class MenuManager : MonoBehaviour
                 boolBoutique = false; // On empeche l'ouverture du menu de boutique
                 boolInventaire = false; // On empeche l'ouverture de l'inventaire
             }
+        }
+
+        if (Input.GetKeyDown(keyScoreBoard))
+        {
+            canvasCrosshair.GetComponent<Canvas>().enabled = false;
+            canvasScoreBoard.GetComponent<Canvas>().enabled = true;
+            boolBoutique = false;
+            boolInventaire = false;
+        }
+        else if (Input.GetKeyUp(keyScoreBoard))
+        {
+            canvasCrosshair.GetComponent<Canvas>().enabled = true;
+            canvasScoreBoard.GetComponent<Canvas>().enabled = false;
+            boolBoutique = true;
+            boolInventaire = true;
         }
         
         if (Input.GetKeyDown(keyBoutique))

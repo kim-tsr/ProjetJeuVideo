@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class InventaireManager : MonoBehaviour
+public class InventaireManager : MonoBehaviourPunCallbacks
 {
     public GameObject[] listeInventaire;
     public float[] listeNbrInventaire;
@@ -83,21 +84,21 @@ public class InventaireManager : MonoBehaviour
                 {
                     listeNbrInventaire[4] += takeObject.GetComponent<Quantite>().quantity;
                     canTake = false;
-                    Destroy(takeObject);
+                    PhotonNetwork.Destroy(takeObject);
                 }
         
                 if (takeObject.layer == 11) // LayerMask MunFa
                 {
                     listeNbrInventaire[5] += takeObject.GetComponent<Quantite>().quantity;
                     canTake = false;
-                    Destroy(takeObject);
+                    PhotonNetwork.Destroy(takeObject);
                 }
         
                 if (takeObject.layer == 12) // LayerMask MunSniper
                 {
                     listeNbrInventaire[6] += takeObject.GetComponent<Quantite>().quantity;
                     canTake = false;
-                    Destroy(takeObject);
+                    PhotonNetwork.Destroy(takeObject);
                 }
         
                 if (takeObject.layer == 14 && !boutiqueManager.GetComponent<BoutiqueManager>().PossessionArme2) // LayerMask Arme2
@@ -105,21 +106,21 @@ public class InventaireManager : MonoBehaviour
                     listeNbrInventaire[3] = 1;
                     canTake = false;
                     boutiqueManager.BuyPistolet();
-                    Destroy(takeObject);
+                    PhotonNetwork.Destroy(takeObject);
                 }
                 if (takeObject.layer == 16 && !boutiqueManager.GetComponent<BoutiqueManager>().PossessionArme1) // LayerMask Arme2
                 {
                     listeNbrInventaire[2] = 1;
                     canTake = false;
                     boutiqueManager.BuyMitraillette();
-                    Destroy(takeObject);
+                    PhotonNetwork.Destroy(takeObject);
                 }
                 if (takeObject.layer == 17 && !boutiqueManager.GetComponent<BoutiqueManager>().PossessionArme1) // LayerMask Arme2
                 {
                     listeNbrInventaire[2] = 1;
                     canTake = false;
                     boutiqueManager.BuyFa();
-                    Destroy(takeObject);
+                    PhotonNetwork.Destroy(takeObject);
                 }
                 
                 if (takeObject.layer == 18 && !boutiqueManager.GetComponent<BoutiqueManager>().PossessionArme1) // LayerMask Arme2
@@ -127,14 +128,14 @@ public class InventaireManager : MonoBehaviour
                     listeNbrInventaire[2] = 1;
                     canTake = false;
                     boutiqueManager.BuySniper();
-                    Destroy(takeObject);
+                    PhotonNetwork.Destroy(takeObject);
                 }
                 
                 if (takeObject.layer == 15) // LayerMask Argent
                 {
                     listeNbrInventaire[7] += takeObject.GetComponent<Quantite>().quantity;
                     canTake = false;
-                    Destroy(takeObject);
+                    PhotonNetwork.Destroy(takeObject);
                 }
             }
         }
@@ -155,7 +156,7 @@ public class InventaireManager : MonoBehaviour
         {
             // Prend la position du joueur en enlevant un peu de hauteur et en rajoutant un peu de distance devant lui
             Vector3 pos = new Vector3(player.transform.position.x , player.transform.position.y-0.5f,player.transform.position.z+2);
-            Instantiate(grenade, pos , player.transform.rotation); // Pour faire apparaitre le GameObject a la position
+            PhotonNetwork.Instantiate(grenade.name, pos , player.transform.rotation); // Pour faire apparaitre le GameObject a la position
             listeNbrInventaire[1] -= 1;
         }
     }
@@ -165,7 +166,7 @@ public class InventaireManager : MonoBehaviour
         if (listeNbrInventaire[2] > 0)
         {
             Vector3 pos = new Vector3(player.transform.position.x , player.transform.position.y-0.5f,player.transform.position.z+2);
-            Instantiate(arme1, pos , player.transform.rotation);
+            PhotonNetwork.Instantiate(arme1.name, pos , player.transform.rotation);
             listeNbrInventaire[2] -= 1;
             dropArme1 = true;
         }
@@ -176,7 +177,7 @@ public class InventaireManager : MonoBehaviour
         if (listeNbrInventaire[3] > 0)
         {
             Vector3 pos = new Vector3(player.transform.position.x , player.transform.position.y-0.5f,player.transform.position.z+2);
-            Instantiate(arme2, pos , player.transform.rotation);
+            PhotonNetwork.Instantiate(arme2.name, pos , player.transform.rotation);
             listeNbrInventaire[3] -= 1;
             dropArme2 = true;
         }
@@ -198,7 +199,7 @@ public class InventaireManager : MonoBehaviour
                 munMitraillette__.GetComponent<Quantite>().quantity = listeNbrInventaire[4];
                 listeNbrInventaire[4] = 0;
             }
-            Instantiate(munMitraillette__, pos , player.transform.rotation);
+            PhotonNetwork.Instantiate(munMitraillette__.name, pos , player.transform.rotation);
         }
     }
     
@@ -218,7 +219,7 @@ public class InventaireManager : MonoBehaviour
                 munFa__.GetComponent<Quantite>().quantity = listeNbrInventaire[5];
                 listeNbrInventaire[5] = 0;
             }
-            Instantiate(munFa__, pos , player.transform.rotation);
+            PhotonNetwork.Instantiate(munFa__.name, pos , player.transform.rotation);
         }
     }
     
@@ -238,7 +239,7 @@ public class InventaireManager : MonoBehaviour
                 munSniper__.GetComponent<Quantite>().quantity = listeNbrInventaire[6];
                 listeNbrInventaire[6] = 0;
             }
-            Instantiate(munSniper__, pos , player.transform.rotation);
+            PhotonNetwork.Instantiate(munSniper__.name, pos , player.transform.rotation);
         }
     }
     
@@ -258,7 +259,7 @@ public class InventaireManager : MonoBehaviour
                 argent__.GetComponent<Quantite>().quantity = listeNbrInventaire[4];
                 listeNbrInventaire[7] = 1000;
             }
-            Instantiate(argent__, pos , player.transform.rotation);
+            PhotonNetwork.Instantiate(argent__.name, pos , player.transform.rotation);
         }
     }
 

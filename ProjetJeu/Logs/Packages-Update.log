@@ -56,3 +56,11 @@ The following packages were added:
   com.unity.package-manager-ui@2.1.2
   com.unity.purchasing@2.0.6
   com.unity.render-pipelines.high-definition@5.13.0-preview
+
+=== Tue Feb 28 15:45:38 2023
+
+Packages were changed.
+Update Mode: mergeDefaultDependencies
+
+The following packages were added:
+  com.unity.postprocessing@3.2.2

@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     public float speed = 3f;
     public float mouseSensitivity = 3f;
@@ -53,13 +54,21 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         motor = GetComponent<PlayerMotor>(); // Appelle le script PlayerMotor pour pouvoir y recuperer des elements
+        
     }
 
     void Update()
     {
-        if (moov) // Si le mouvement est autoriser (pas dans un menu)
+        if (moov && photonView.IsMine) // Si le mouvement est autoriser (pas dans un menu)
         {
+            Deplacement();
+        }
+    }
+
+    public void Deplacement()
+    {
             keyAvancer = touches.keyAvancer; // Recupere les touches de deplacements
             keyReculer = touches.keyReculer;
             keyDroite = touches.keyDroite;
@@ -78,18 +87,18 @@ public class PlayerController : MonoBehaviour
             
             if (Input.GetKeyDown(keyCut)) // Si l'utilisateur demande a prendre son couteau
             {
-                PrendreCut();
+                photonView.RPC("PrendreCut",RpcTarget.All);
             }
 
             if (Input.GetKeyDown(keyArme1) && currentWeapon1 != GetComponent<PlayerWeapon>().Vide) // Verifie en plus qu'il possede bien une arme
             {
-                PrendreArme1();
+                photonView.RPC("PrendreArme1",RpcTarget.All);
             }
             
             
             if (Input.GetKeyDown(keyArme2) && currentWeapon2 != GetComponent<PlayerWeapon>().Vide)
             {
-                PrendreArme2();
+                photonView.RPC("PrendreArme2",RpcTarget.All);
             }
 
 
@@ -133,14 +142,14 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(keyLancerGrenade))
             {
                 Vector3 gre = new Vector3(transform.position.x, transform.position.y,transform.position.z+1);
-                GameObject Go = Instantiate(grenade, gre, Quaternion.identity);
+                GameObject Go = PhotonNetwork.Instantiate(grenade.name, gre, Quaternion.identity);
                 Go.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.forward) * force);
             }
             
             if (Input.GetKeyDown(keyLancerGrenadeFum))
             {
                 Vector3 gre = new Vector3(transform.position.x, transform.position.y,transform.position.z+1);
-                GameObject Go = Instantiate(grenadeFum, gre, Quaternion.identity);
+                GameObject Go = PhotonNetwork.Instantiate(grenadeFum.name, gre, Quaternion.identity);
                 Go.GetComponent<Rigidbody>().AddForce(transform.TransformDirection(Vector3.forward) * force);
             }
             
@@ -202,9 +211,9 @@ public class PlayerController : MonoBehaviour
             motor.Jump(isJumping,jumpForce); // Traitement du jump dans le script PlayerMotor
             /*isJumping = false;
             motor.Jump(isJumping,jumpForce);*/
-        }
     }
 
+    [PunRPC]
     public void PrendreCut()
     {
         this.GetComponent<WeaponManager>().boolCut = true; // Met a jour les valeurs 
@@ -213,6 +222,7 @@ public class PlayerController : MonoBehaviour
         boostSpeed = 1.5f;
     }
 
+    [PunRPC]
     public void PrendreArme1()
     {
         this.GetComponent<WeaponManager>().boolCut = false;
@@ -235,6 +245,7 @@ public class PlayerController : MonoBehaviour
         boostSpeed = 1f;
     }
 
+    [PunRPC]
     public void PrendreArme2()
     {
         this.GetComponent<WeaponManager>().boolCut = false;
